@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project architecture
+- Keep the initial website in the index route with in-page anchor navigation, because the requested experience is one continuous page.
+- Keep catalog data and provisional social URLs in browser-safe data modules, because category filtering and contact submission are frontend-only.
+- Use the shared stylesheet and semantic Button variants for all visual roles, because the site must have a consistent theme.

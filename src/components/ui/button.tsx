@@ -9,6 +9,13 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        cafe: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-none",
+        filter:
+          "border border-border bg-transparent text-muted-foreground hover:bg-accent hover:text-primary shadow-none rounded-full",
+        filterActive:
+          "border border-primary bg-primary text-primary-foreground shadow-none rounded-full",
+        chat: "rounded-full bg-primary text-primary-foreground hover:bg-primary/90",
+        onPrimary: "text-primary-foreground hover:bg-primary-foreground/10",
         default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
         destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
