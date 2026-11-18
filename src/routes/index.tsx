@@ -76,7 +76,7 @@ function SocialLinks() {
         href={socialLinks.telegram}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Telegram (link provisório)"
+        aria-label="Abrir o bot oficial do Café Central no Telegram"
       >
         <Send size={16} />
         Telegram
@@ -91,7 +91,6 @@ function Index() {
   const [category, setCategory] = useState<Category>("Todos");
   const [submitted, setSubmitted] = useState(false);
   const [formError, setFormError] = useState("");
-  const [chatOpen, setChatOpen] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -109,7 +108,6 @@ function Index() {
   useEffect(() => {
     const close = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setChatOpen(false);
         setMobileOpen(false);
       }
     };
@@ -462,45 +460,15 @@ function Index() {
         </div>
       </footer>
 
-      {chatOpen && (
-        <aside className="chat-window" aria-label="Conversa com Café Central">
-          <div className="chat-header">
-            <div className="flex items-center gap-2">
-              <Coffee size={20} />
-              <strong>Café Central</strong>
-            </div>
-            <Button
-              variant="onPrimary"
-              size="icon"
-              onClick={() => setChatOpen(false)}
-              aria-label="Fechar conversa"
-            >
-              <X />
-            </Button>
-          </div>
-          <div className="chat-body">
-            <div className="chat-message">
-              Olá! Seja bem-vindo ao Café Central. Como podemos ajudar? ☕
-            </div>
-          </div>
-          <div className="chat-footer">
-            <p>O atendimento por aqui estará disponível em breve.</p>
-            <Button variant="outline" asChild className="w-full">
-              <a href="#contato" onClick={() => setChatOpen(false)}>
-                Fale com a gente <ArrowRight />
-              </a>
-            </Button>
-          </div>
-        </aside>
-      )}
-      <Button
-        variant="chat"
-        className="chat-launcher h-14 w-14 [&_svg]:size-6"
-        aria-label={chatOpen ? "Fechar chat" : "Abrir chat"}
-        aria-expanded={chatOpen}
-        onClick={() => setChatOpen(!chatOpen)}
-      >
-        {chatOpen ? <X /> : <MessageCircle />}
+      <Button variant="chat" className="chat-launcher h-14 w-14 [&_svg]:size-6" asChild>
+        <a
+          href={socialLinks.telegram}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Abrir atendimento no Telegram"
+        >
+          <MessageCircle />
+        </a>
       </Button>
     </>
   );

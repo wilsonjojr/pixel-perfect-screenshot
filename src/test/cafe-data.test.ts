@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { categories, products, filterProducts, validateContact } from "@/lib/cafe-data";
+import { categories, products, filterProducts, socialLinks, validateContact } from "@/lib/cafe-data";
 
 describe("Café Central catalog", () => {
   it("has exactly ten products", () => {
@@ -35,5 +35,11 @@ describe("Contact validation", () => {
   });
   it("rejects incomplete phone", () => {
     expect(validateContact({ ...valid, phone: "123" })).toBe(false);
+  });
+});
+
+describe("Telegram", () => {
+  it("uses the official Café Central bot", () => {
+    expect(socialLinks.telegram).toBe("https://t.me/botWillTestN8N_bot");
   });
 });

@@ -19,9 +19,9 @@ export const categories = [
 ] as const;
 export type Category = (typeof categories)[number];
 export const socialLinks = {
-  // Provisional links: replace these with the café's real profiles.
+  // Provisional Instagram link: replace it with the café's real profile.
   instagram: "https://www.instagram.com/cafecentral.exemplo/",
-  telegram: "https://t.me/cafecentral_exemplo",
+  telegram: "https://t.me/botWillTestN8N_bot",
 };
 export const products = [
   {
