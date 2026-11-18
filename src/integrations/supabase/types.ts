@@ -14,16 +14,233 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      categories: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          sort_order: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          sort_order?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      contacts: {
+        Row: {
+          consent: boolean
+          consent_at: string | null
+          created_at: string
+          customer_id: string
+          id: string
+          message: string
+        }
+        Insert: {
+          consent?: boolean
+          consent_at?: string | null
+          created_at?: string
+          customer_id: string
+          id?: string
+          message: string
+        }
+        Update: {
+          consent?: boolean
+          consent_at?: string | null
+          created_at?: string
+          customer_id?: string
+          id?: string
+          message?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contacts_customer_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      customers: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          phone: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          name: string
+          phone: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          phone?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      interest_products: {
+        Row: {
+          id: string
+          interest_id: string
+          product_id: string
+        }
+        Insert: {
+          id?: string
+          interest_id: string
+          product_id: string
+        }
+        Update: {
+          id?: string
+          interest_id?: string
+          product_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "interest_products_interest_fkey"
+            columns: ["interest_id"]
+            isOneToOne: false
+            referencedRelation: "interests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "interest_products_product_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      interests: {
+        Row: {
+          created_at: string
+          customer_id: string
+          id: string
+          status: Database["public"]["Enums"]["interest_status"]
+        }
+        Insert: {
+          created_at?: string
+          customer_id: string
+          id?: string
+          status?: Database["public"]["Enums"]["interest_status"]
+        }
+        Update: {
+          created_at?: string
+          customer_id?: string
+          id?: string
+          status?: Database["public"]["Enums"]["interest_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "interests_customer_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          available: boolean
+          category_id: string
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string | null
+          name: string
+          price: number
+          sort_order: number
+        }
+        Insert: {
+          available?: boolean
+          category_id: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          name: string
+          price: number
+          sort_order?: number
+        }
+        Update: {
+          available?: boolean
+          category_id?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          price?: number
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_category_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_interest_summary_for_telegram: {
+        Args: { p_telegram_user_id: number }
+        Returns: Json
+      }
+      get_interests_for_telegram: {
+        Args: { p_telegram_user_id: number }
+        Returns: Json
+      }
+      register_interest: {
+        Args: { p_name: string; p_phone: string; p_product_ids: string[] }
+        Returns: Json
+      }
+      submit_contact: {
+        Args: {
+          p_consent?: boolean
+          p_email: string
+          p_message: string
+          p_name: string
+          p_phone: string
+        }
+        Returns: Json
+      }
+      update_interest_status_for_telegram: {
+        Args: {
+          p_interest_id: string
+          p_new_status: string
+          p_telegram_user_id: number
+        }
+        Returns: Json
+      }
     }
     Enums: {
-      [_ in never]: never
+      interest_status: "Pendente" | "Em atendimento" | "Concluído"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +367,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      interest_status: ["Pendente", "Em atendimento", "Concluído"],
+    },
   },
 } as const
